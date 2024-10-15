@@ -1,0 +1,70 @@
+#configure the kafka server
+spring:
+  kafka:
+    consumer:
+      bootstrap-server: localhost:9092  # Adresse du serveur Kafka pour les consommateurs
+      group-id: myGroup  # Groupe de consommateurs
+      auto-offset-reset: earliest  # Commencer � lire � partir du plus ancien message disponible
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer  # D�s�rialiseur de cl�
+      #value-deserializer: org.apache.kafka.common.serialization.StringDeserializer  # D�s�rialiseur de valeur
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+       spring.json.trusted.packages : '*'
+    producer:
+      bootstrap-servers: localhost:9092  # Adresse du serveur Kafka pour les producteurs
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer  # S�rialiseur de cl�
+     # value-serializer: org.springframework.kafka.support.serializer.JsonDeserializer  # S�rialiseur de valeur
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Cette configuration concerne l'int�gration de Kafka avec une application Spring, sp�cifiant � la fois des param�tres
+# pour le consommateur (consumer) et le producteur (producer) Kafka. Voici une explication d�taill�e et simple de chaque partie :
+#
+# Section consumer (consommateur)
+# Un consumer (consommateur) est une application qui lit des messages depuis un topic Kafka.
+#
+# bootstrap-server : localhost:9092
+# Indique l'adresse du broker Kafka auquel le consommateur doit se connecter pour lire des messages. Ici, le broker est
+# sur la machine locale (localhost) et utilise le port 9092.
+#
+# group-id : myGroup
+# Chaque consommateur appartient � un groupe de consommateurs. Le group-id permet de d�finir � quel groupe de consommateurs
+# l'application appartient. Les consommateurs d'un m�me groupe lisent les messages de mani�re �quilibr�e, c'est-�-dire qu'ils
+# se partagent les partitions d'un topic. Ici, le groupe est nomm� "myGroup".
+#
+# auto-offset-reset: earliest
+# Cette propri�t� d�termine � quel endroit le consommateur doit commencer � lire les messages dans le cas o� il n'existe
+# pas d'offset d�j� d�fini pour ce consommateur dans le groupe.
+#
+# earliest signifie que le consommateur commencera � lire � partir du plus ancien message disponible dans le topic.
+#
+# key-deserializer : org.apache.kafka.common.Serialization.StringDeserializer
+# Le d�s�rialiseur de cl� permet de convertir les donn�es de la cl� des messages Kafka, qui sont envoy�es en format binaire,
+# en une cha�ne de caract�res (String). Ici, le d�s�rialiseur utilis� est celui de type String, car les cl�s des messages
+# sont des cha�nes de caract�res.
+#
+# value-deserializer : org.apache.kafka.common.Serialization.StringDeserializer
+# Le d�s�rialiseur de valeur convertit les valeurs des messages en cha�ne de caract�res. Cela signifie que les messages re�us
+# par le consommateur seront des cha�nes de caract�res une fois d�s�rialis�s.
+
+
